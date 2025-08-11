@@ -1,79 +1,129 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native ML Kit Example App
 
-# Getting Started
+This example app demonstrates all the React Native ML Kit modules in a single comprehensive application.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Features Demonstrated
 
-## Step 1: Start the Metro Server
+- **Language Detection**: Detect the language of input text
+- **Text Translation**: Translate text to different languages (Spanish in this example)
+- **Barcode Scanning**: Ready for camera integration to scan barcodes
+- **Face Detection**: Ready for camera integration to detect faces in images
+- **Image Labeling**: Ready for camera integration to identify objects in images
+- **Text Recognition (OCR)**: Ready for camera integration to extract text from images
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Dependencies
 
-To start Metro, run the following command from the _root_ of your React Native project:
+This example includes the following key dependencies:
 
+- **React Native**: 0.73.6
+- **React Native Reanimated**: ^3.10.1
+- All React Native ML Kit modules (barcode-scanning, face-detection, identify-languages, image-labeling, text-recognition, translate-text)
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js 18+
+- React Native CLI
+- Xcode (for iOS development)
+- Android Studio (for Android development)
+
+### Installation
+
+1. Navigate to the example directory:
+   ```bash
+   cd example
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. For iOS, install CocoaPods dependencies:
+   ```bash
+   cd ios && pod install && cd ..
+   ```
+
+### Running the App
+
+#### iOS
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+#### Android
+```bash
+npm run android
+```
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Project Structure
 
-## Step 3: Modifying your App
+```
+example/
+├── App.js                 # Main application component
+├── package.json          # Project dependencies and scripts
+├── babel.config.js       # Babel configuration with Reanimated plugin
+├── metro.config.js       # Metro bundler configuration
+├── index.js              # Entry point
+├── app.json              # App configuration
+├── ios/
+│   └── Podfile           # iOS dependencies
+└── android/
+    ├── build.gradle      # Android build configuration
+    ├── settings.gradle   # Android project settings
+    ├── gradle.properties # Android gradle properties
+    └── app/
+        └── build.gradle  # App-level Android build config
+```
 
-Now that you have successfully run the app, let's modify it.
+## Key Features
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### Language Detection
+- Detects the primary language of input text
+- Shows possible languages with confidence scores
+- Uses the `@react-native-ml-kit/identify-languages` module
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Text Translation
+- Translates text to Spanish (can be configured for other languages)
+- Uses the `@react-native-ml-kit/translate-text` module
 
-## Congratulations! :tada:
+### Camera-Based Features
+The app is set up for camera integration but shows placeholder functionality:
+- **Barcode Scanning**: Ready for QR code and barcode detection
+- **Face Detection**: Ready for face recognition in photos
+- **Image Labeling**: Ready for object identification in images
+- **Text Recognition**: Ready for OCR from camera images
 
-You've successfully run and modified your React Native App. :partying_face:
+## React Native Reanimated Integration
 
-### Now what?
+This example app includes React Native Reanimated v3.10.1 with proper configuration:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+- Babel plugin configured in `babel.config.js`
+- Ready for smooth animations and gestures
+- Compatible with all ML Kit modules
 
-# Troubleshooting
+## Troubleshooting
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### iOS Issues
+- Ensure iOS deployment target is 15.5 or higher
+- Delete `Pods` folder and `Podfile.lock`, then reinstall with `pod install`
+- Make sure Xcode is properly configured
 
-# Learn More
+### Android Issues
+- Clean build: `cd android && ./gradlew clean`
+- Ensure compileSdkVersion is 34 or higher
+- Check that Android SDK and build tools are properly installed
 
-To learn more about React Native, take a look at the following resources:
+## Next Steps
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+To extend this example:
+
+1. **Add Camera Integration**: Implement camera functionality for barcode scanning, face detection, image labeling, and OCR
+2. **Add More Languages**: Extend translation support to multiple target languages
+3. **Add UI Enhancements**: Use React Native Reanimated for smooth animations
+4. **Add Persistence**: Save results using AsyncStorage or a database
+5. **Add Camera Permissions**: Implement proper permission handling for camera access
+
+## License
+
+This example is part of the React Native ML Kit project and follows the same license terms.
