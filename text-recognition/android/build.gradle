@@ -71,4 +71,5 @@ dependencies {
     implementation 'com.google.mlkit:text-recognition-japanese:16.0.1'
     // To recognize Korean script
     implementation 'com.google.mlkit:text-recognition-korean:16.0.1'
+    implementation 'com.google.firebase:firebase-core:22.1.0'
 }

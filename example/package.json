@@ -6,8 +6,11 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "start:clean": "react-native start --reset-cache",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "clear-cache": "./clear-cache.sh",
+    "reset-metro": "rm -rf $TMPDIR/metro-* && npm start -- --reset-cache"
   },
   "dependencies": {
     "@react-native-ml-kit/barcode-scanning": "file:../barcode-scanning",

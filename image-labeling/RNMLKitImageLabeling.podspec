@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "GoogleMLKit/ImageLabeling", "7.0.0"
+  s.dependency "GoogleMLKit/ImageLabeling", "~> 7.0.0"
 end

@@ -8,14 +8,11 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, '15.5'
 prepare_react_native_project!
 
-# Flipper is disabled for better compatibility with Reanimated 3.16.5
-# flipper_config = FlipperConfiguration.disabled
+# Force use of static frameworks for better ML Kit compatibility
+use_frameworks! :linkage => :static
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+# Override Firebase SDK version
+$FirebaseSDKVersion = '11.15.0'
 
 target 'RNMLKitExample' do
   project 'RNMLKitExample.xcodeproj'
@@ -26,14 +23,25 @@ target 'RNMLKitExample' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # Hermes is now enabled by default. Disable by setting this flag to false.
+    # Hermes is now enabled by default.
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
-    # Flipper is disabled for better compatibility
-    # :flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
+  # Firebase and ML Kit pods
+  pod 'Firebase/Core', '~> 11.15.0'
+  pod 'GoogleMLKit/BarcodeScanning', '~> 7.0.0'
+  pod 'GoogleMLKit/FaceDetection', '~> 7.0.0'
+  pod 'GoogleMLKit/ImageLabeling', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognition', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionChinese', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionDevanagari', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionJapanese', '~> 7.0.0'
+  pod 'GoogleMLKit/TextRecognitionKorean', '~> 7.0.0'
+  pod 'GoogleMLKit/Translate', '~> 7.0.0'
+  pod 'GoogleMLKit/LanguageID', '~> 7.0.0'
 
   target 'RNMLKitExampleTests' do
     inherit! :complete
@@ -51,6 +59,13 @@ target 'RNMLKitExample' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings["ONLY_ACTIVE_ARCH"] = "NO"
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.5'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+        
+        # Fix for Firebase and ML Kit
+        if target.name.start_with?('Firebase', 'GoogleMLKit', 'MLKit', 'GoogleDataTransport', 'GoogleUtilities')
+          config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+        end
       end
     end
   end
